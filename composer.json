@@ -1,0 +1,14 @@
+{
+    "name": "fonseca/cpf_cnpj_validation",
+    "description": "This packages validates Brazilian CPF and CNPJ registration documents.",
+    "authors": [
+        {
+            "name": "Fonseca",
+            "email": "gdfonseca@leroymerlin.com.br"
+        }
+    ],
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.6",
+        "phpunit/phpunit": "^9.5"
+    }
+}
