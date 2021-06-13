@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Rules;
+namespace Fnsc\CNPJ;
 
+use Fnsc\AbstractValidation;
 use Illuminate\Contracts\Validation\Rule;
 
-class CNPJ extends AbstractValidation implements Rule
+class Validator extends AbstractValidation implements Rule
 {
+    private const DIGIT_QUANTITY = 14;
     private array $cnpj;
     private array $invalidCnpj = [
         "00000000000000",
@@ -20,12 +22,11 @@ class CNPJ extends AbstractValidation implements Rule
         "99999999999999",
     ];
 
-    public function passes(string $attribute, string $value): bool
+    public function passes($attribute, $value): bool
     {
         $firstDigit = 0;
         $secondDigit = 0;
-
-        $this->removeSpecialChars($value);
+        $value = $this->removeSpecialChars($value);
 
         if (in_array($value, $this->invalidCnpj)) {
             return false;
@@ -33,7 +34,7 @@ class CNPJ extends AbstractValidation implements Rule
 
         $this->cnpj = str_split($value);
 
-        if (count($this->cnpj) !== 14) {
+        if (!$this->hasCorrectDigitQuantity()) {
             return false;
         }
 
@@ -58,13 +59,13 @@ class CNPJ extends AbstractValidation implements Rule
         return $result % 11 < 2 ? 0 : 11 - $result % 11;
     }
 
-    public function message(): string
-    {
-        return 'O :attribute é inválido.';
-    }
-
     private function isValid(int $firstDigit, int $secondDigit): bool
     {
-        return $this->cnpj[12] === $firstDigit && $this->cnpj[13] === $secondDigit;
+        return (int) $this->cnpj[12] === $firstDigit && (int) $this->cnpj[13] === $secondDigit;
+    }
+
+    private function hasCorrectDigitQuantity(): bool
+    {
+        return count($this->cnpj) === self::DIGIT_QUANTITY;
     }
 }
