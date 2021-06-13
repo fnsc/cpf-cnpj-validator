@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Rules;
+namespace Fnsc\CPF;
 
+use Fnsc\AbstractValidation;
 use Illuminate\Contracts\Validation\Rule;
 
-class CPF extends AbstractValidation implements Rule
+class Validator extends AbstractValidation implements Rule
 {
+    private const DIGIT_QUANTITY = 11;
     private array $cpf;
     private array $invalidCpf = [
         "00000000000",
@@ -20,12 +22,11 @@ class CPF extends AbstractValidation implements Rule
         "99999999999",
     ];
 
-    public function passes(string $attribute, string $value): bool
+    public function passes($attribute, $value): bool
     {
-        $resultOne = 0;
-        $resultTwo = 0;
-
-        $this->removeSpecialChars($value);
+        $firstDigit = 0;
+        $secondDigit = 0;
+        $value = $this->removeSpecialChars($value);
 
         if (in_array($value, $this->invalidCpf)) {
             return false;
@@ -33,14 +34,14 @@ class CPF extends AbstractValidation implements Rule
 
         $this->cpf = str_split($value);
 
-        if (count($this->cpf) !== 11) {
+        if (!$this->hasCorrectDigitQuantity()) {
             return false;
         }
 
-        $resultOne = $this->calculateDigit(10, 2);
-        $resultTwo = $this->calculateDigit(11, 1);
+        $firstDigit = $this->calculateDigit(10, 2);
+        $secondDigit = $this->calculateDigit(11, 1);
 
-        return $this->isValid($resultOne, $resultTwo);
+        return $this->isValid($firstDigit, $secondDigit);
     }
 
     private function calculateDigit(int $aux, int $loop): int
@@ -55,13 +56,13 @@ class CPF extends AbstractValidation implements Rule
         return ($result * 10) % 11;
     }
 
-    public function message(): string
-    {
-        return 'O :attribute é inválido.';
-    }
-
     private function isValid(int $firstDigit, int $secondDigit): bool
     {
-        return ($this->cpf[9] == $firstDigit && $this->cpf[10] == $secondDigit);
+        return (int) $this->cpf[9] === $firstDigit && (int) $this->cpf[10] == $secondDigit;
+    }
+
+    private function hasCorrectDigitQuantity(): bool
+    {
+        return count($this->cpf) === self::DIGIT_QUANTITY;
     }
 }
