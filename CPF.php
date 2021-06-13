@@ -4,62 +4,64 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class CPF implements Rule
+class CPF extends AbstractValidation implements Rule
 {
-    protected int $resultOne = 0;
-    protected int $resultTwo = 0;
-    protected array $cpf;
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    private array $cpf;
+    private array $invalidCpf = [
+        "00000000000",
+        "11111111111",
+        "22222222222",
+        "33333333333",
+        "44444444444",
+        "55555555555",
+        "66666666666",
+        "77777777777",
+        "88888888888",
+        "99999999999",
+    ];
 
-    /**
-     * Determine if the validation rule passes.
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return bool
-     */
-    public function passes($attribute, $value)
+    public function passes(string $attribute, string $value): bool
     {
-        if ($value == "00000000000" || $value == "11111111111" || $value == "22222222222" || $value == "33333333333" || $value == "44444444444" || $value == "55555555555" || $value == "66666666666" || $value == "77777777777" || $value == "88888888888" || $value == "99999999999") {
+        $resultOne = 0;
+        $resultTwo = 0;
+
+        $this->removeSpecialChars($value);
+
+        if (in_array($value, $this->invalidCpf)) {
             return false;
         }
 
         $this->cpf = str_split($value);
 
-        if (count($this->cpf) != 11) {
+        if (count($this->cpf) !== 11) {
             return false;
         }
 
-        $this->resultOne = $this->calcDigit(10, 2);
-        $this->resultTwo = $this->calcDigit(11, 1);
+        $resultOne = $this->calculateDigit(10, 2);
+        $resultTwo = $this->calculateDigit(11, 1);
 
-        return ($this->cpf[9] == $this->resultOne && $this->cpf[10] == $this->resultTwo);
+        return $this->isValid($resultOne, $resultTwo);
     }
 
-    public function calcDigit($aux, $loop)
+    private function calculateDigit(int $aux, int $loop): int
     {
-        $resultTmp = 0;
-        for ($i = 0; $i < count($this->cpf) - $loop; $i++) {
-            $resultTmp += $this->cpf[$i] * $aux--;
+        $result = 0;
+        $loop = count($this->cpf) - $loop;
+
+        for ($i = 0; $i < $loop; $i++) {
+            $result += $this->cpf[$i] * $aux--;
         }
-        return ($resultTmp * 10) % 11;
+
+        return ($result * 10) % 11;
     }
 
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
+    public function message(): string
     {
         return 'O :attribute é inválido.';
+    }
+
+    private function isValid(int $firstDigit, int $secondDigit): bool
+    {
+        return ($this->cpf[9] == $firstDigit && $this->cpf[10] == $secondDigit);
     }
 }
