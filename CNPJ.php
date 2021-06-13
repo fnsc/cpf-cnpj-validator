@@ -4,65 +4,67 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class CNPJ implements Rule
+class CNPJ extends AbstractValidation implements Rule
 {
-    protected int $resultOne = 0;
-    protected int $resultTwo = 0;
-    protected array $cnpj;
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    private array $cnpj;
+    private array $invalidCnpj = [
+        "00000000000000",
+        "11111111111111",
+        "22222222222222",
+        "33333333333333",
+        "44444444444444",
+        "55555555555555",
+        "66666666666666",
+        "77777777777777",
+        "88888888888888",
+        "99999999999999",
+    ];
 
-    /**
-     * Determine if the validation rule passes.
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return bool
-     */
-    public function passes($attribute, $value)
+    public function passes(string $attribute, string $value): bool
     {
-        if ($value == "00000000000000" || $value == "11111111111111" || $value == "22222222222222" || $value == "33333333333333" || $value == "44444444444444" || $value == "55555555555555" || $value == "66666666666666" || $value == "77777777777777" || $value == "88888888888888" || $value == "99999999999999") {
+        $firstDigit = 0;
+        $secondDigit = 0;
+
+        $this->removeSpecialChars($value);
+
+        if (in_array($value, $this->invalidCnpj)) {
             return false;
         }
 
         $this->cnpj = str_split($value);
 
-        if (count($this->cnpj) != 14) {
+        if (count($this->cnpj) !== 14) {
             return false;
         }
 
-        $this->resultOne = $this->calcDigit(5, 2);
-        $this->resultTwo = $this->calcDigit(6, 1);
+        $firstDigit = $this->calculateDigit(5, 2);
+        $secondDigit = $this->calculateDigit(6, 1);
 
-        return ($this->cnpj[12] == $this->resultOne && $this->cnpj[13] == $this->resultTwo);
+        return $this->isValid($firstDigit, $secondDigit);
     }
 
-    public function calcDigit($aux, $loop)
+    private function calculateDigit(int $aux, int $loop): int
     {
-        $resultTmp = 0;
-        for ($i = 0; $i < count($this->cnpj) - $loop; $i++) {
-            $resultTmp += $this->cnpj[$i] * $aux--;
+        $result = 0;
+        $loop = count($this->cnpj) - $loop;
+
+        for ($i = 0; $i < $loop; $i++) {
+            $result += $this->cnpj[$i] * $aux--;
             if ($aux < 2) {
                 $aux = 9;
             }
         }
-        return $resultTmp % 11 < 2 ? 0 : 11 - $resultTmp % 11;
+
+        return $result % 11 < 2 ? 0 : 11 - $result % 11;
     }
 
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
+    public function message(): string
     {
         return 'O :attribute é inválido.';
+    }
+
+    private function isValid(int $firstDigit, int $secondDigit): bool
+    {
+        return $this->cnpj[12] === $firstDigit && $this->cnpj[13] === $secondDigit;
     }
 }
