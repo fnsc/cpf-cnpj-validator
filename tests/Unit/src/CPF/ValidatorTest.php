@@ -15,7 +15,7 @@ class ValidatorTest extends TestCase
         $validator = new Validator();
 
         // Actions
-        $result = $validator->passes('cnpj', $value);
+        $result = $validator->passes('cpf', $value);
 
         // Assertions
         $this->assertSame($expected, $result);
@@ -44,6 +44,26 @@ class ValidatorTest extends TestCase
                 'value' => '12345678901',
                 'expected' => false,
             ],
+            'valid cpf' => [
+                'value' => '123.456.789-09',
+                'expected' => true,
+            ],
+            'invalid cpf #2' => [
+                'value' => '123.456.789-10',
+                'expected' => false,
+            ],
         ];
+    }
+
+    public function testShouldReturnTheErrorMessage(): void
+    {
+        // Set
+        $validator = new Validator();
+
+        // Actions
+        $result = $validator->message();
+
+        // Assertions
+        $this->assertSame('O :attribute é inválido.', $result);
     }
 }

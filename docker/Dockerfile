@@ -1,24 +1,11 @@
 FROM leroymerlinbr/php:7.4
-USER root
+LABEL maintainer="boitata@leroymerlin.com.br"
 
-# Packages
-RUN cd /tmp \
-    && mkdir librdkafka \
-    && cd librdkafka \
-    && git clone https://github.com/edenhill/librdkafka.git . \
-    && ./configure \
-    && make \
-    && make install \
-    && rm -rf /tmp/*
+USER root:root
 
-# PHP Extensions
-RUN pecl install rdkafka \
-    && docker-php-ext-enable rdkafka \
-    && rm -rf /tmp/*
-
-# Xdebug
-RUN docker-php-ext-enable xdebug
-COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
+RUN pecl install docker-php-ext-enable \
+    xdebug \
+  && rm -rf /tmp/*
 
 ARG UID=1000
 ARG GID=1000
@@ -28,5 +15,7 @@ RUN groupmod -g ${GID} www-data \
   && chown -hR www-data:www-data \
     /var/www \
     /usr/local/
+
+COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
 
 USER www-data:www-data

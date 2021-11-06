@@ -12,5 +12,8 @@ jobs:
             -   name: Composer install
                 run: docker-compose run --rm -T php composer install --no-interaction --no-progress
 
+            -   name: Run Code Standards
+                run: docker-compose run --rm -T php vendor/bin/phpcs
+
             -   name: Run Tests
                 run: docker-compose run --rm -T php vendor/bin/phpunit
