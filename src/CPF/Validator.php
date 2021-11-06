@@ -7,25 +7,34 @@ use Illuminate\Contracts\Validation\Rule;
 
 class Validator extends AbstractValidation implements Rule
 {
+    /**
+     * @var int
+     */
     private const DIGIT_QUANTITY = 11;
+
+    /**
+     * @var array
+     */
     private array $cpf;
+
+    /**
+     * @var array|string[]
+     */
     private array $invalidCpf = [
-        "00000000000",
-        "11111111111",
-        "22222222222",
-        "33333333333",
-        "44444444444",
-        "55555555555",
-        "66666666666",
-        "77777777777",
-        "88888888888",
-        "99999999999",
+        '00000000000',
+        '11111111111',
+        '22222222222',
+        '33333333333',
+        '44444444444',
+        '55555555555',
+        '66666666666',
+        '77777777777',
+        '88888888888',
+        '99999999999',
     ];
 
     public function passes($attribute, $value): bool
     {
-        $firstDigit = 0;
-        $secondDigit = 0;
         $value = $this->removeSpecialChars($value);
 
         if (in_array($value, $this->invalidCpf)) {
@@ -53,7 +62,9 @@ class Validator extends AbstractValidation implements Rule
             $result += $this->cpf[$i] * $aux--;
         }
 
-        return ($result * 10) % 11;
+        $result = ($result * 10) % 11;
+
+        return $result >= 10 ? 0 : $result;
     }
 
     private function isValid(int $firstDigit, int $secondDigit): bool
@@ -63,6 +74,6 @@ class Validator extends AbstractValidation implements Rule
 
     private function hasCorrectDigitQuantity(): bool
     {
-        return count($this->cpf) === self::DIGIT_QUANTITY;
+        return self::DIGIT_QUANTITY === count($this->cpf);
     }
 }

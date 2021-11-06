@@ -1,2 +1,5 @@
-/vendor/
+/coverage
+/vendor
 /.idea
+.phpunit.result.cache
+clover.xml

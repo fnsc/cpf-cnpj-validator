@@ -1,6 +1,6 @@
 {
     "name": "fonseca/cpf_cnpj_validation",
-    "description": "This packages validates Brazilian CPF and CNPJ registration documents.",
+    "description": "CPF and CNPJ validation for laravel applications.",
     "authors": [
         {
             "name": "Fonseca",
@@ -11,12 +11,13 @@
         "php": ">=7.4.0",
         "ext-json": "*",
         "illuminate/console": "^8.0",
-        "illuminate/support": "^8.0"
+        "illuminate/support": "^8.0",
+        "illuminate/config": "^8.69"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.6",
         "phpunit/phpunit": "^9.5",
-        "illuminate/validation": "^8.46"
+        "illuminate/validation": "^8.69",
+        "leroy-merlin-br/coding-standard": "^3.0"
     },
     "autoload": {
         "psr-4": {
@@ -25,7 +26,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Fnsc\\": "tests/Unit/src"
+            "Fnsc\\": "tests/Unit/src/"
         }
     }
 }

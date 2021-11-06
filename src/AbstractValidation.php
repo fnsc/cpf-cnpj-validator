@@ -11,6 +11,6 @@ class AbstractValidation
 
     protected function removeSpecialChars(string $value): string
     {
-        return preg_replace( '/[^0-9]/is', '', $value);
+        return preg_replace('/[^0-9]/is', '', $value);
     }
 }

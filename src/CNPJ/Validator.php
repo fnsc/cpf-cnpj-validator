@@ -7,25 +7,34 @@ use Illuminate\Contracts\Validation\Rule;
 
 class Validator extends AbstractValidation implements Rule
 {
+    /**
+     * @var int
+     */
     private const DIGIT_QUANTITY = 14;
+
+    /**
+     * @var array
+     */
     private array $cnpj;
+
+    /**
+     * @var array|string[]
+     */
     private array $invalidCnpj = [
-        "00000000000000",
-        "11111111111111",
-        "22222222222222",
-        "33333333333333",
-        "44444444444444",
-        "55555555555555",
-        "66666666666666",
-        "77777777777777",
-        "88888888888888",
-        "99999999999999",
+        '00000000000000',
+        '11111111111111',
+        '22222222222222',
+        '33333333333333',
+        '44444444444444',
+        '55555555555555',
+        '66666666666666',
+        '77777777777777',
+        '88888888888888',
+        '99999999999999',
     ];
 
     public function passes($attribute, $value): bool
     {
-        $firstDigit = 0;
-        $secondDigit = 0;
         $value = $this->removeSpecialChars($value);
 
         if (in_array($value, $this->invalidCnpj)) {
@@ -66,6 +75,6 @@ class Validator extends AbstractValidation implements Rule
 
     private function hasCorrectDigitQuantity(): bool
     {
-        return count($this->cnpj) === self::DIGIT_QUANTITY;
+        return self::DIGIT_QUANTITY === count($this->cnpj);
     }
 }
