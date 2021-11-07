@@ -23,4 +23,9 @@
         <exclude-pattern>src/CNPJ/Validator.php</exclude-pattern>
         <exclude-pattern>src/CPF/Validator.php</exclude-pattern>
     </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.UselessAnnotation">
+        <exclude-pattern>src/CNPJ/Validator.php</exclude-pattern>
+        <exclude-pattern>src/CPF/Validator.php</exclude-pattern>
+        <exclude-pattern>src/FiscalDoc/Validator.php</exclude-pattern>
+    </rule>
 </ruleset>

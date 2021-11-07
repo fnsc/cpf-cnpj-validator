@@ -2,15 +2,20 @@
 
 namespace Fnsc\CNPJ;
 
-use Fnsc\AbstractValidation;
+use Fnsc\AbstractValidator;
 use Illuminate\Contracts\Validation\Rule;
 
-class Validator extends AbstractValidation implements Rule
+class Validator extends AbstractValidator implements Rule
 {
     /**
      * @var int
      */
     private const DIGIT_QUANTITY = 14;
+
+    /**
+     * @var string
+     */
+    protected string $alias = 'cnpj';
 
     /**
      * @var array
@@ -65,7 +70,9 @@ class Validator extends AbstractValidation implements Rule
             }
         }
 
-        return $result % 11 < 2 ? 0 : 11 - $result % 11;
+        $result %= 11;
+
+        return $result < 2 ? 0 : 11 - $result;
     }
 
     private function isValid(int $firstDigit, int $secondDigit): bool

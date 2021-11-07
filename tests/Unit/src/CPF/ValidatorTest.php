@@ -66,4 +66,16 @@ class ValidatorTest extends TestCase
         // Assertions
         $this->assertSame('O :attribute é inválido.', $result);
     }
+
+    public function testShouldReturnTheValidatorAlias(): void
+    {
+        // Set
+        $validator = new Validator();
+
+        // Actions
+        $result = $validator->getAlias();
+
+        // Assertions
+        $this->assertSame('cpf', $result);
+    }
 }
