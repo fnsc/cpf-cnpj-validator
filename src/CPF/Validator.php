@@ -2,15 +2,20 @@
 
 namespace Fnsc\CPF;
 
-use Fnsc\AbstractValidation;
+use Fnsc\AbstractValidator;
 use Illuminate\Contracts\Validation\Rule;
 
-class Validator extends AbstractValidation implements Rule
+class Validator extends AbstractValidator implements Rule
 {
     /**
      * @var int
      */
     private const DIGIT_QUANTITY = 11;
+
+    /**
+     * @var string
+     */
+    protected string $alias = 'cpf';
 
     /**
      * @var array

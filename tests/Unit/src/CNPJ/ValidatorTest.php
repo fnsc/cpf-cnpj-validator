@@ -46,4 +46,16 @@ class ValidatorTest extends TestCase
             ],
         ];
     }
+
+    public function testShouldReturnTheValidatorAlias(): void
+    {
+        // Set
+        $validator = new Validator();
+
+        // Actions
+        $result = $validator->getAlias();
+
+        // Assertions
+        $this->assertSame('cnpj', $result);
+    }
 }
