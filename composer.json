@@ -1,10 +1,11 @@
 {
-    "name": "fonseca/cpf_cnpj_validation",
-    "description": "CPF and CNPJ validation for laravel applications.",
+    "name": "fnsc/cpf-cnpj-validator",
+    "description": "CPF and CNPJ validator for laravel applications.",
+    "license": "MIT",
     "authors": [
         {
-            "name": "Fonseca",
-            "email": "gdfonseca@leroymerlin.com.br"
+            "name": "Gabriel Fonseca",
+            "email": "gabrieldfnsc@gmail.com"
         }
     ],
     "require": {
