@@ -1,7 +1,13 @@
-FROM leroymerlinbr/php:7.4
-LABEL maintainer="boitata@leroymerlin.com.br"
+FROM php:8.1.5-cli
+
+WORKDIR /var/www/html
 
 USER root:root
+
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+RUN apt-get update && apt-get install zip unzip vim -y \
+    && apt-get clean
 
 RUN pecl install docker-php-ext-enable \
     xdebug \

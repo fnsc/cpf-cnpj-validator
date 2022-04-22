@@ -17,7 +17,8 @@ This package provides a simple way to validate CPF and CNPJ for Laravel applicat
 
 <a name="requirements"></a>
 ## Requirements
-- PHP >= 7.4
+- PHP >= 8.0.2
+- Laravel >= 9.*
 
 <a name="installation"></a>
 ## Installation
@@ -28,14 +29,14 @@ composer require fonseca/cpf_cnpj_validation
 
 <a name="usage"></a>
 ## Usage Guide
-Add this code to your `App\Providers\AppServiceProvider::class`.  
+Add this code to your `App\Providers\AppServiceProvider::class`.
 
 ```php
 <?php
 
 namespace App\Providers;
 
-use Fnsc\FiscalDoc\Validator as FiscalDoc;
+use Fnsc\RegistrationNumber\Validator as RegistrationNumber;
 use Fnsc\CPF\Validator as CPF;
 use Fnsc\CNPJ\Validator as CNPJ;
 use Illuminate\Support\Facades\Validator;
@@ -44,9 +45,9 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     private array $rules = [
-        FiscalDoc::class,
         CPF::class,
         CNPJ::class,
+        RegistrationNumber::class,
     ];
 
     /**
@@ -95,20 +96,20 @@ return [
     ...
     'cpf' => 'The :attribute is invalid.',
     'cnpj' => 'The :attribute is invalid.',
-    'fiscal_doc' => 'The :attribute is invalid.',
+    'registration_number' => 'The :attribute is invalid.',
     ...
 ];
 ```
 
 And, finally, on your `FooRequest.php` file. 
 Here you can choose which rule will be used. <br> 
-The `Fnsc\FiscalDoc\Validator as FiscalDoc;` class made both validations, depending on the size of the string received.<br>
+The `Fnsc\RegistrationNumber\Validator as RegistrationNumber;` class made both validations, depending on the size of the string received.<br>
 The `Fnsc\CPF\Validator as CPF;` made only cpf validations, and `Fnsc\CNPJ\Validator as CNPJ;` made only cnpj validations.
 ```php
 public function rules()
 {
     return [
-        'fiscal_doc' => 'required|fiscal_doc',
+        'fiscal_doc' => 'required|registration_number',
         'cpf' => 'required|cpf',
         'cnpj' => 'required|cnpj',
     ];

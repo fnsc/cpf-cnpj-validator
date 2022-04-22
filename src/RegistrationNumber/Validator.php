@@ -1,6 +1,6 @@
 <?php
 
-namespace Fnsc\FiscalDoc;
+namespace Fnsc\RegistrationNumber;
 
 use Fnsc\AbstractValidator;
 use Fnsc\CNPJ\Validator as CNPJ;
@@ -14,10 +14,7 @@ class Validator extends AbstractValidator implements Rule
      */
     private const CPF_DIGIT_QUANTITY = 11;
 
-    /**
-     * @var string
-     */
-    protected string $alias = 'fiscal_doc';
+    protected string $alias = 'registration_number';
 
     public function passes($attribute, $value): bool
     {
