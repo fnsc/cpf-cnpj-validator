@@ -2,4 +2,5 @@
 /vendor
 /.idea
 .phpunit.result.cache
+.phpcs-cache
 clover.xml

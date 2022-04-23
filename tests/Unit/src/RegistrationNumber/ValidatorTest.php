@@ -1,6 +1,6 @@
 <?php
 
-namespace Fnsc\FiscalDoc;
+namespace Fnsc\RegistrationNumber;
 
 use Fnsc\CNPJ\Validator as CNPJ;
 use Fnsc\CPF\Validator as CPF;
@@ -120,6 +120,6 @@ class ValidatorTest extends TestCase
         $result = $validator->getAlias();
 
         // Assertions
-        $this->assertSame('fiscal_doc', $result);
+        $this->assertSame('registration_number', $result);
     }
 }

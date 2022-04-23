@@ -14,18 +14,12 @@
     <file>./tests</file>
 
     <rule ref="LeroyMerlin"/>
-
-    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification">
+     <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification">
         <exclude-pattern>src/CNPJ/Validator.php</exclude-pattern>
         <exclude-pattern>src/CPF/Validator.php</exclude-pattern>
     </rule>
     <rule ref="SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter">
         <exclude-pattern>src/CNPJ/Validator.php</exclude-pattern>
         <exclude-pattern>src/CPF/Validator.php</exclude-pattern>
-    </rule>
-    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.UselessAnnotation">
-        <exclude-pattern>src/CNPJ/Validator.php</exclude-pattern>
-        <exclude-pattern>src/CPF/Validator.php</exclude-pattern>
-        <exclude-pattern>src/FiscalDoc/Validator.php</exclude-pattern>
     </rule>
 </ruleset>

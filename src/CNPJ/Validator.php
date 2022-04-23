@@ -12,9 +12,6 @@ class Validator extends AbstractValidator implements Rule
      */
     private const DIGIT_QUANTITY = 14;
 
-    /**
-     * @var string
-     */
     protected string $alias = 'cnpj';
 
     /**
