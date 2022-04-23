@@ -109,7 +109,7 @@ The `Fnsc\CPF\Validator as CPF;` made only cpf validations, and `Fnsc\CNPJ\Valid
 public function rules()
 {
     return [
-        'fiscal_doc' => 'required|registration_number',
+        'registration_number' => 'required|registration_number',
         'cpf' => 'required|cpf',
         'cnpj' => 'required|cnpj',
     ];
