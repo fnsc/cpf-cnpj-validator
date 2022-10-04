@@ -8,5 +8,5 @@ grumphp:
         fix_by_default: true
     tasks:
         phpcs: null
-#        phpstan:
-#            configuration: ./phpstan.neon
+        phpstan:
+            configuration: ./phpstan.neon
