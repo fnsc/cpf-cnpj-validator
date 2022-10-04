@@ -7,9 +7,6 @@ use Illuminate\Contracts\Validation\Rule;
 
 class Validator extends AbstractValidator implements Rule
 {
-    /**
-     * @var int
-     */
     private const DIGIT_QUANTITY = 11;
 
     protected string $alias = 'cpf';
