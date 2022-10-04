@@ -17,7 +17,7 @@ class Validator extends AbstractValidator implements Rule
     {
         $value = $this->removeSpecialChars($value);
 
-        if (self::CPF_DIGIT_QUANTITY === strlen($value)) {
+        if (self::CPF_DIGIT_QUANTITY === strlen($value ?: '')) {
             $validator = new CPF();
 
             return $validator->passes($attribute, $value);

@@ -12,7 +12,7 @@ class Validator extends AbstractValidator implements Rule
     protected string $alias = 'cpf';
 
     /**
-     * @var array
+     * @var string[]
      */
     private array $cpf;
 
@@ -40,7 +40,7 @@ class Validator extends AbstractValidator implements Rule
             return false;
         }
 
-        $this->cpf = str_split($value);
+        $this->cpf = str_split($value ?: '');
 
         if (!$this->hasCorrectDigitQuantity()) {
             return false;
@@ -58,7 +58,7 @@ class Validator extends AbstractValidator implements Rule
         $loop = count($this->cpf) - $loop;
 
         for ($i = 0; $i < $loop; $i++) {
-            $result += $this->cpf[$i] * $aux--;
+            $result += (int) $this->cpf[$i] * $aux--;
         }
 
         $result = ($result * 10) % 11;

@@ -21,6 +21,9 @@ class ValidatorTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getCpfScenarios(): array
     {
         return [

@@ -16,7 +16,7 @@ abstract class AbstractValidator
         return 'O :attribute é inválido.';
     }
 
-    protected function removeSpecialChars(string $value): string
+    protected function removeSpecialChars(string $value): string|null
     {
         return preg_replace('/[^0-9]/is', '', $value);
     }

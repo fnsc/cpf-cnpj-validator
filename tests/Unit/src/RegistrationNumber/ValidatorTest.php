@@ -19,6 +19,7 @@ class ValidatorTest extends TestCase
         $cnpj = m::mock(CNPJ::class);
 
         // Expectations
+        /** @phpstan-ignore-next-line  */
         $cnpj->expects()
             ->passes('cnpj')
             ->andReturn($expected);
@@ -30,6 +31,9 @@ class ValidatorTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getCnpjScenarios(): array
     {
         return [
@@ -66,6 +70,7 @@ class ValidatorTest extends TestCase
         $cpf = m::mock(CPF::class);
 
         // Expectations
+        /** @phpstan-ignore-next-line  */
         $cpf->expects()
             ->passes('cpf')
             ->andReturn($expected);
@@ -77,6 +82,9 @@ class ValidatorTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getCpfScenarios(): array
     {
         return [
