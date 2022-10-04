@@ -12,7 +12,7 @@ class Validator extends AbstractValidator implements Rule
     protected string $alias = 'cnpj';
 
     /**
-     * @var array
+     * @var string[]
      */
     private array $cnpj;
 
@@ -40,7 +40,7 @@ class Validator extends AbstractValidator implements Rule
             return false;
         }
 
-        $this->cnpj = str_split($value);
+        $this->cnpj = str_split($value ?: '');
 
         if (!$this->hasCorrectDigitQuantity()) {
             return false;
@@ -58,7 +58,8 @@ class Validator extends AbstractValidator implements Rule
         $loop = count($this->cnpj) - $loop;
 
         for ($i = 0; $i < $loop; $i++) {
-            $result += $this->cnpj[$i] * $aux--;
+            $result += (int) $this->cnpj[$i] * $aux--;
+
             if ($aux < 2) {
                 $aux = 9;
             }
