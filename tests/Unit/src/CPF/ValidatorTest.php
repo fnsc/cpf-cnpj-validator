@@ -21,10 +21,34 @@ class ValidatorTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
+    public function testShouldReturnTheErrorMessage(): void
+    {
+        // Set
+        $validator = new Validator();
+
+        // Actions
+        $result = $validator->message();
+
+        // Assertions
+        $this->assertSame('O :attribute é inválido.', $result);
+    }
+
+    public function testShouldReturnTheValidatorAlias(): void
+    {
+        // Set
+        $validator = new Validator();
+
+        // Actions
+        $result = $validator->getAlias();
+
+        // Assertions
+        $this->assertSame('cpf', $result);
+    }
+
     /**
      * @return mixed[]
      */
-    public function getCpfScenarios(): array
+    public static function getCpfScenarios(): array
     {
         return [
             'valid cpf without special chars' => [
@@ -56,29 +80,5 @@ class ValidatorTest extends TestCase
                 'expected' => false,
             ],
         ];
-    }
-
-    public function testShouldReturnTheErrorMessage(): void
-    {
-        // Set
-        $validator = new Validator();
-
-        // Actions
-        $result = $validator->message();
-
-        // Assertions
-        $this->assertSame('O :attribute é inválido.', $result);
-    }
-
-    public function testShouldReturnTheValidatorAlias(): void
-    {
-        // Set
-        $validator = new Validator();
-
-        // Actions
-        $result = $validator->getAlias();
-
-        // Assertions
-        $this->assertSame('cpf', $result);
     }
 }

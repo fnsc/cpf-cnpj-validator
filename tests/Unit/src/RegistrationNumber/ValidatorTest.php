@@ -32,9 +32,43 @@ class ValidatorTest extends TestCase
     }
 
     /**
+     * @dataProvider getCpfScenarios
+     */
+    public function testShouldValidateTheCpf(string $value, bool $expected): void
+    {
+        // Set
+        $validator = new Validator();
+        $cpf = m::mock(CPF::class);
+
+        // Expectations
+        /** @phpstan-ignore-next-line  */
+        $cpf->expects()
+            ->passes('cpf')
+            ->andReturn($expected);
+
+        // Actions
+        $result = $validator->passes('cpf', $value);
+
+        // Assertions
+        $this->assertSame($expected, $result);
+    }
+
+    public function testShouldReturnTheValidatorAlias(): void
+    {
+        // Set
+        $validator = new Validator();
+
+        // Actions
+        $result = $validator->getAlias();
+
+        // Assertions
+        $this->assertSame('registration_number', $result);
+    }
+
+    /**
      * @return mixed[]
      */
-    public function getCnpjScenarios(): array
+    public static function getCnpjScenarios(): array
     {
         return [
             'valid cnpj without special chars' => [
@@ -61,31 +95,9 @@ class ValidatorTest extends TestCase
     }
 
     /**
-     * @dataProvider getCpfScenarios
-     */
-    public function testShouldValidateTheCpf(string $value, bool $expected): void
-    {
-        // Set
-        $validator = new Validator();
-        $cpf = m::mock(CPF::class);
-
-        // Expectations
-        /** @phpstan-ignore-next-line  */
-        $cpf->expects()
-            ->passes('cpf')
-            ->andReturn($expected);
-
-        // Actions
-        $result = $validator->passes('cpf', $value);
-
-        // Assertions
-        $this->assertSame($expected, $result);
-    }
-
-    /**
      * @return mixed[]
      */
-    public function getCpfScenarios(): array
+    public static function getCpfScenarios(): array
     {
         return [
             'valid cpf without special chars' => [
@@ -117,17 +129,5 @@ class ValidatorTest extends TestCase
                 'expected' => false,
             ],
         ];
-    }
-
-    public function testShouldReturnTheValidatorAlias(): void
-    {
-        // Set
-        $validator = new Validator();
-
-        // Actions
-        $result = $validator->getAlias();
-
-        // Assertions
-        $this->assertSame('registration_number', $result);
     }
 }
