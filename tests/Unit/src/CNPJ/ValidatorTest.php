@@ -21,10 +21,22 @@ class ValidatorTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
+    public function testShouldReturnTheValidatorAlias(): void
+    {
+        // Set
+        $validator = new Validator();
+
+        // Actions
+        $result = $validator->getAlias();
+
+        // Assertions
+        $this->assertSame('cnpj', $result);
+    }
+
     /**
      * @return mixed[]
      */
-    public function getCnpjScenarios(): array
+    public static function getCnpjScenarios(): array
     {
         return [
             'valid cnpj without special chars' => [
@@ -48,17 +60,5 @@ class ValidatorTest extends TestCase
                 'expected' => false,
             ],
         ];
-    }
-
-    public function testShouldReturnTheValidatorAlias(): void
-    {
-        // Set
-        $validator = new Validator();
-
-        // Actions
-        $result = $validator->getAlias();
-
-        // Assertions
-        $this->assertSame('cnpj', $result);
     }
 }
