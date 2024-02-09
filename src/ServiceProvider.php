@@ -26,12 +26,10 @@ class ServiceProvider extends BaseServiceProvider
 
     private function registerRules(): void
     {
-        $validator = $this->app->make(Validator::class);
-
         foreach ($this->rules as $rule) {
-            $rule = $this->app->make($rule);
-            $alias = $rule->getAlias();
-            $validator->extend($alias, $rule . '@passes', $rule->message());
+            $instance = $this->app->make($rule);
+            $alias = $instance->getAlias();
+            Validator::extend($alias, $rule . '@passes', $instance->message());
         }
     }
 }
