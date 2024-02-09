@@ -1,6 +1,6 @@
 <?php
 
-namespace Fnsc\CPF;
+namespace CpfCnpjValidationRules\CPF;
 
 use PHPUnit\Framework\TestCase;
 
@@ -30,7 +30,7 @@ class ValidatorTest extends TestCase
         $result = $validator->message();
 
         // Assertions
-        $this->assertSame('O :attribute é inválido.', $result);
+        $this->assertSame('The :attribute is invalid.', $result);
     }
 
     public function testShouldReturnTheValidatorAlias(): void

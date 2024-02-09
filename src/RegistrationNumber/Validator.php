@@ -1,10 +1,10 @@
 <?php
 
-namespace Fnsc\RegistrationNumber;
+namespace CpfCnpjValidationRules\RegistrationNumber;
 
-use Fnsc\AbstractValidator;
-use Fnsc\CNPJ\Validator as CNPJ;
-use Fnsc\CPF\Validator as CPF;
+use CpfCnpjValidationRules\AbstractValidator;
+use CpfCnpjValidationRules\CNPJ\Validator as CNPJ;
+use CpfCnpjValidationRules\CPF\Validator as CPF;
 use Illuminate\Contracts\Validation\Rule;
 
 class Validator extends AbstractValidator implements Rule
@@ -26,5 +26,10 @@ class Validator extends AbstractValidator implements Rule
         $validator = new CNPJ();
 
         return $validator->passes($attribute, $value);
+    }
+
+    public function message(): string
+    {
+        return 'The :attribute is invalid.';
     }
 }
