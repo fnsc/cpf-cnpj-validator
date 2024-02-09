@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Fnsc\\": "src/"
+            "CpfCnpjValidationRules\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Fnsc\\": "tests/Unit/src/"
+            "CpfCnpjValidationRules\\": "tests/Unit/src/"
         }
     },
     "config": {

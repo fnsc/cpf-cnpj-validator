@@ -1,8 +1,8 @@
 <?php
 
-namespace Fnsc\CNPJ;
+namespace CpfCnpjValidationRules\CNPJ;
 
-use Fnsc\AbstractValidator;
+use CpfCnpjValidationRules\AbstractValidator;
 use Illuminate\Contracts\Validation\Rule;
 
 class Validator extends AbstractValidator implements Rule
@@ -50,6 +50,11 @@ class Validator extends AbstractValidator implements Rule
         $secondDigit = $this->calculateDigit(6, 1);
 
         return $this->isValid($firstDigit, $secondDigit);
+    }
+
+    public function message(): string
+    {
+        return 'The :attribute is invalid.';
     }
 
     private function calculateDigit(int $aux, int $loop): int

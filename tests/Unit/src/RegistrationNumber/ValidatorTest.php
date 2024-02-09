@@ -1,9 +1,9 @@
 <?php
 
-namespace Fnsc\RegistrationNumber;
+namespace CpfCnpjValidationRules\RegistrationNumber;
 
-use Fnsc\CNPJ\Validator as CNPJ;
-use Fnsc\CPF\Validator as CPF;
+use CpfCnpjValidationRules\CNPJ\Validator as CNPJ;
+use CpfCnpjValidationRules\CPF\Validator as CPF;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 

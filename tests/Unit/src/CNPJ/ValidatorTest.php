@@ -1,6 +1,6 @@
 <?php
 
-namespace Fnsc\CNPJ;
+namespace CpfCnpjValidationRules\CNPJ;
 
 use PHPUnit\Framework\TestCase;
 
